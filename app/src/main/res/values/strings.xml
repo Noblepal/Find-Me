@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Find Me</string>
+    <string name="google_map_api_key">AIzaSyBtm47lCvZURvZxMghYXnOIFHzYN95tk00</string>
+    <string name="hint_search_service">Search service</string>
+</resources>

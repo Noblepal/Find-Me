@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="256dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <com.intelligence.findme.customfonts.TextViewHelveticaLight
+        android:id="@+id/textViewHelveticaLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Welcome, user"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+
+    <com.intelligence.findme.customfonts.EditTextHelvetica
+        android:id="@+id/edt_main_search"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/textViewHelveticaLight"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_search"
+        android:drawableStart="@drawable/ic_search"
+        android:elevation="1dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="@string/hint_search_service"
+        android:textSize="21sp" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/edt_main_search"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

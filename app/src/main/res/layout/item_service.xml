@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/service_item"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_service"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="10dp"
+        tools:src="@drawable/ic_history" />
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/tv_contractor_count_for_service"
+        android:layout_toEndOf="@id/img_service"
+        android:orientation="vertical">
+
+        <com.intelligence.findme.customfonts.TextViewHelveticaLight
+            android:id="@+id/tv_service_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Plumbing"
+            android:textColor="@color/black"
+            android:textSize="21sp" />
+
+        <com.intelligence.findme.customfonts.TextViewHelveticaLight
+            android:id="@+id/tv_service_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Plumbing"
+            android:textSize="21sp" />
+
+    </LinearLayout>
+
+
+    <com.intelligence.findme.customfonts.TextViewHelveticaLight
+        android:id="@+id/tv_contractor_count_for_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="16dp"
+        android:text="102"
+        android:textSize="17sp" />
+</RelativeLayout>
