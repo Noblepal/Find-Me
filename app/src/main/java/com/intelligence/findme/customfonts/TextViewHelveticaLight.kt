@@ -26,7 +26,7 @@ class TextViewHelveticaLight : TextView {
         if (!isInEditMode) {
             val tf: Typeface = Typeface.createFromAsset(
                 context.assets,
-                "fonts/MavenPro-Medium.ttf"
+                "fonts/maven_pro_regular.ttf"
             )
 
             typeface = tf

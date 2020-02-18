@@ -5,6 +5,7 @@ data class Provider(
     val full_name: String,
     val profile_photo: String,
     val business_name: String,
+    val price: String,
     val business_email: String,
     val business_phone: String,
     val service_type: String,
@@ -12,5 +13,8 @@ data class Provider(
     val open: String,
     val close: String,
     val county: String,
-    val reg_date: String
+    val reg_date: String,
+    val lat: Double,
+    val lng: Double,
+    val distance: Double
 )

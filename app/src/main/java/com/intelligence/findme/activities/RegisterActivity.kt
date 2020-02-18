@@ -1,5 +1,6 @@
 package com.intelligence.findme.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentPagerAdapter
@@ -51,6 +52,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun prepareData() {
         //TODO: Submit all entered data
+        startActivity(Intent(this, MainActivity::class.java));
     }
 
     override fun onBackPressed() {

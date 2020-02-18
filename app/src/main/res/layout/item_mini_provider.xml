@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemMiniProvider"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgMiniProvider"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_findr"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/llMiniMiddle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/llMiniRight"
+            app:layout_constraintStart_toEndOf="@id/imgMiniProvider"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.intelligence.findme.customfonts.TextViewHelveticaLight
+                android:id="@+id/tvMiniContractorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contractor Name"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+            <com.intelligence.findme.customfonts.TextViewHelveticaLight
+                android:id="@+id/tvMiniContractorService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Service"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llMiniRight"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.intelligence.findme.customfonts.TextViewHelveticaLight
+                android:id="@+id/tvMiniDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="1.4KM"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+            <com.intelligence.findme.customfonts.TextViewHelveticaLight
+                android:id="@+id/tvMiniPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Kes. 200/hour"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

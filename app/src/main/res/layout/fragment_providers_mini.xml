@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ProvidersMiniFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/providerMiniRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_mini_provider" />
+
+</FrameLayout>

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.intelligence.findme.R
 import com.intelligence.findme.adapters.ServiceAdapter
@@ -33,9 +33,24 @@ class ServiceListFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view: View = inflater.inflate(R.layout.fragment_service_list, container, false)
+        getServices(view)
+        return view
+    }
+
+    private fun getServices(view: View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewServices)
+        recyclerView.layoutManager = GridLayoutManager(context!!, 2)
+
         RetrofitClient.instance.getAllServices(Utils.ALL_SERVICES_TOKEN)
             .enqueue(object : Callback<ServiceResponse> {
-
                 override fun onResponse(
                     call: Call<ServiceResponse>,
                     response: Response<ServiceResponse>
@@ -44,6 +59,8 @@ class ServiceListFragment : Fragment() {
                         try {
                             val data: List<Service>? = response.body()?.services
                             serviceArrayList.addAll(data!!)
+                            recyclerView.adapter =
+                                ServiceAdapter(context!!, serviceArrayList)
                         } catch (e: Exception) {
                             Log.d(TAG, "Line: 46")
                             e.printStackTrace()
@@ -57,22 +74,7 @@ class ServiceListFragment : Fragment() {
                 override fun onFailure(call: Call<ServiceResponse>, t: Throwable) {
                     Toast.makeText(context, "Error: " + t.message, Toast.LENGTH_LONG).show()
                 }
-
             })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_service_list, container, false)
-
-        val activity = activity as Context
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewServices)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = ServiceAdapter(activity, serviceArrayList)
-
-        return view
-    }
 }

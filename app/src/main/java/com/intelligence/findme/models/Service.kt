@@ -1,9 +1,12 @@
 package com.intelligence.findme.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Service(
-    val id: Int,
-    val category: String,
-    val profession: String,
-    val image_url: String,
-    val contractorCount: Int
+    @SerializedName("id") val id: Int,
+    @SerializedName("category") val category: String,
+    @SerializedName("profession") val profession: String,
+    @SerializedName("image_url") val image_url: String,
+    @SerializedName("contractorCount") val contractorCount: Int,
+    @SerializedName("popularity") val popularity: Int
 )

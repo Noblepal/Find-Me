@@ -22,4 +22,13 @@ interface ApiService {
         @Field("token") token: String
     ): Call<ServiceResponse>
 
+    @FormUrlEncoded
+    @POST("functions.php")
+    fun getNearestContractor(
+        @Field("token") token: String,
+        @Field("service") service: String,
+        @Field("lat") lat: Double,
+        @Field("lng") lng: Double
+    ): Call<ProviderResponse>
+
 }

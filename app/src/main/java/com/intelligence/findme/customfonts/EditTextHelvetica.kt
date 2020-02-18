@@ -26,7 +26,7 @@ class EditTextHelvetica : EditText {
         if (!isInEditMode) {
             val tf: Typeface = Typeface.createFromAsset(
                 getContext().assets,
-                "fonts/MavenPro-Medium.ttf"
+                "fonts/maven_pro_regular.ttf"
             )
 
             typeface = tf

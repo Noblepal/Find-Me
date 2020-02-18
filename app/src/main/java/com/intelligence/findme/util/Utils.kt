@@ -8,6 +8,7 @@ class Utils {
     companion object {
         const val ALL_SERVICES_TOKEN = "8JPqEv%qaU60g&KKTaotK"
         const val NEARBY_CONTRACTORS_TOKEN = "p*7ns6iVM%z&0FD9wTpxH"
+        const val NEARBY_CONTRACTORSBY_SERVICE = "0@lDD!2hc%h%rRjl91XOF"
         fun hideView(v: View?) {
             if (v?.visibility == View.VISIBLE) {
                 v.visibility = View.GONE
