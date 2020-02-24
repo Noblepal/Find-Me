@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
 
-    <com.intelligence.findme.customfonts.TextViewHelveticaLight
+    <TextView
         android:id="@+id/tv_phone_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/product_sans_regular"
         android:text="Enter Your Phone number"
         android:textColor="@color/black"
         android:textSize="28sp"
@@ -32,7 +33,21 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans_regular"
+            android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvPhoneErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/product_sans_italic"
+        android:text="Invalid phone number"
+        android:textColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_phone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,5 +14,7 @@
     <color name="colorDarkerYellow">#FFC107</color>
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
+    <color name="red">#EF5350</color>
+    <color name="colorGold">#FFAA00</color>
 
 </resources>

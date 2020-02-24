@@ -59,20 +59,22 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
     private val PERMISSION_REQUEST_CODE = 110
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var mLastLocation: Location? = null
+    private var mService: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        getIncomingIntent()
 
         requestPermissions()
-        checkGPSPermission()
-
+        if (!checkGPSPermission()) requestGPSPermission()
+        else getLastKnownLocation()
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         initializeStuff()
 
@@ -87,10 +89,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
                     BottomSheetBehavior.STATE_EXPANDED -> {
-
                     }
                     BottomSheetBehavior.STATE_COLLAPSED -> {
-
                     }
 
                 }
@@ -118,20 +118,26 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
         }
     }
 
+    private fun getIncomingIntent() {
+        if (intent.hasExtra("service_request")) {
+            val provider = intent.getSerializableExtra("service_request") as Provider
+            showBottomSheetDialogFragment(provider)
+        }
+    }
+
     private fun initializeStuff() {
         floatingActionButton.setOnClickListener {
             if (checkGPSPermission())
             //changeCameraPosition(mLastLocation)
             else
-                showSnackBar(
-                    "GPS not enabled. This application will not work correctly",
-                    -2,
-                    true,
-                    "Enable"
-                )
+                requestGPSPermission()
+            /*showSnackBar(
+                "GPS not enabled. This application will not work correctly",
+                -2,
+                true,
+                "Enable"
+            )*/
         }
-
-        getLastKnownLocation()
     }
 
     private fun sendRequest() {
@@ -164,9 +170,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
             })
     }
 
-    private fun showBottomSheetDialogFragment() {
-        val bottomSheetFragment =
-            BottomSheetFragment()
+    private fun showBottomSheetDialogFragment(provider: Provider) {
+        val bottomSheetFragment = BottomSheetFragment.newInstance(provider)
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 
@@ -207,6 +212,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
         val lm: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         var gpsEnabled = false
         var networkEnabled = false
+
         try {
             gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
             networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -233,6 +239,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
                 "Enable"
             )
         }
+        dialogBuilder.setCancelable(false)
+        dialogBuilder.show()
     }
 
     private fun showSnackBar(s: String, LENGTH: Int, hasAction: Boolean, actionText: String) {
@@ -243,6 +251,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
                     "Enable" -> {
                         startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                     }
+                    "Retry" -> {
+                        findNearestContractor(mService!!)
+                    }
                 }
             }
         }
@@ -251,19 +262,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
 
     private fun getLastKnownLocation(): Boolean {
         var isLocationFound = false
-        fusedLocationProviderClient.lastLocation.addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                mLastLocation = task.result
-                Log.e(TAG, "Lat ${mLastLocation!!.latitude}")
-                Log.e(TAG, "Lng ${mLastLocation!!.longitude}")
-                isLocationFound = true
-                changeCameraPosition(mLastLocation)
-            } else {
-                //Toast.makeText(this, "Location not found", Toast.LENGTH_LONG).show()
-                isLocationFound = false
-                //getLastKnownLocation()
-            }
-        }
+        if (checkGPSPermission())
+            fusedLocationProviderClient.lastLocation.addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    mLastLocation = task.result
+                    Log.e(TAG, "Lat ${mLastLocation!!.latitude}")
+                    Log.e(TAG, "Lng ${mLastLocation!!.longitude}")
+                    isLocationFound = true
+                    changeCameraPosition(mLastLocation)
+                } else {
+                    isLocationFound = false
+                }
+            } else
+            requestGPSPermission()
         return isLocationFound
     }
 
@@ -284,16 +295,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
     }
 
     override fun yesButtonClicked(service: String) {
+        mService = service
         removeFragment(serviceListFragment)
         collapseBottomSheetLayout()
         findNearestContractor(service)
         showProgressDialog("Searching for $service nearby", true)
-        //Toast.makeText(applicationContext, "Yes: $service", Toast.LENGTH_LONG).show()
     }
 
     private fun findNearestContractor(s: String) {
         RetrofitClient.instance.getNearestContractor(
-            Utils.NEARBY_CONTRACTORSBY_SERVICE,
+            Utils.NEARBY_CONTRACTORS_BY_SERVICE,
             s,
             mLastLocation!!.latitude,
             mLastLocation!!.longitude
@@ -311,10 +322,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
                 if (response.isSuccessful) {
                     if (!response.body()!!.error) {
                         dismissProgressBar()
-                        var contractors: List<Provider> = response.body()!!.contractors
+                        val contractors: List<Provider> = response.body()!!.contractors
                         displayContractorMarkers(contractors)
                         alsoLoadNewFragmentAndPopulateRecyclerViewWithData(contractors)
-                        //Toast.makeText(applicationContext, "${response.body()}", Toast.LENGTH_LONG).show()
                     } else {
                         dismissProgressBar()
                         Toast.makeText(applicationContext, "No $s found", Toast.LENGTH_LONG)
@@ -328,9 +338,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
                         Toast.LENGTH_LONG
                     ).show()
                 }
-
             }
-
         })
     }
 
@@ -359,7 +367,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, ServiceAdapter.Sea
                     contractor.full_name
                 )
             )
-
         }
     }
 

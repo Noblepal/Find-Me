@@ -1,15 +1,17 @@
 package com.intelligence.findme.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.intelligence.findme.R
-import com.intelligence.findme.customfonts.TextViewHelveticaLight
+import com.intelligence.findme.activities.ContractorDetailActivity
 import com.intelligence.findme.models.Provider
 import com.intelligence.findme.util.GlideApp
 import java.math.RoundingMode
@@ -51,10 +53,15 @@ class ProviderAdapter(
         holder.priceHour.text = provider.price
         holder.service.text = provider.service_type
         holder.item.setOnClickListener {
+            context.startActivity(
+                Intent(context, ContractorDetailActivity::class.java)
+                    .putExtra("item", provider)
+            )
+        }
+        /*holder.item.setOnClickListener {
             if (detailInterface != null)
                 detailInterface!!.getProvider(provider)
-        }
-
+        }*/
     }
 
     private fun showContactDialog(position: Int, profession: String) {
@@ -80,10 +87,10 @@ class ProviderAdapter(
         RecyclerView.ViewHolder(itemView) {
         var item: MaterialCardView
         var imageView: ImageView
-        var providerName: TextViewHelveticaLight
-        var distance: TextViewHelveticaLight
-        var service: TextViewHelveticaLight
-        var priceHour: TextViewHelveticaLight
+        var providerName: TextView
+        var distance: TextView
+        var service: TextView
+        var priceHour: TextView
 
         init {
             item = itemView.findViewById(R.id.itemMiniProvider)

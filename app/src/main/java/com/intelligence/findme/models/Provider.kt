@@ -1,5 +1,7 @@
 package com.intelligence.findme.models
 
+import java.io.Serializable
+
 data class Provider(
     val id: Int,
     val full_name: String,
@@ -17,4 +19,4 @@ data class Provider(
     val lat: Double,
     val lng: Double,
     val distance: Double
-)
+) : Serializable

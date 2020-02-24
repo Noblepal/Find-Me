@@ -1,6 +1,5 @@
 package com.intelligence.findme.fragments
 
-import android.app.TimePickerDialog
 import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +8,6 @@ import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.intelligence.findme.R
 import com.intelligence.findme.adapters.SpinnerAdapter
-import com.intelligence.findme.customfonts.EditTextHelvetica
-import com.intelligence.findme.customfonts.TextViewHelveticaLight
 import com.intelligence.findme.models.Service
 import com.intelligence.findme.models.ServiceResponse
 import com.intelligence.findme.retrofit.RetrofitClient
@@ -19,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 
 class SearchDialogFragment : DialogFragment() {
@@ -31,8 +27,8 @@ class SearchDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = layoutInflater.inflate(R.layout.activity_search, container)
-        val requestBtn = v.findViewById<TextViewHelveticaLight>(R.id.btn_request_service)
-        val edtDescription = v.findViewById<EditTextHelvetica>(R.id.edt_description)
+        val requestBtn = v.findViewById<TextView>(R.id.btn_request_service)
+        val edtDescription = v.findViewById<EditText>(R.id.edt_description)
         val tvTimePicker = v.findViewById<TimePicker>(R.id.time_picker)
         val spinnerServices = v.findViewById<Spinner>(R.id.services_spinner)
         val progressBar = v.findViewById<ProgressBar>(R.id.progress_s)
@@ -49,7 +45,7 @@ class SearchDialogFragment : DialogFragment() {
     private fun performSearch(
         tvTimePicker: TimePicker?,
         spinnerServices: Spinner?,
-        edtDescription: EditTextHelvetica?
+        edtDescription: EditText?
     ) {
 
     }
@@ -105,7 +101,10 @@ class SearchDialogFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
     }
 
     override fun onResume() {

@@ -12,8 +12,8 @@ import com.intelligence.findme.models.Service
 import com.intelligence.findme.models.ServiceResponse
 import com.intelligence.findme.retrofit.RetrofitClient
 import com.intelligence.findme.util.Utils
-import com.intelligence.findme.util.Utils.Companion.hideView
-import com.intelligence.findme.util.Utils.Companion.showView
+import com.intelligence.findme.util.Utils.hideView
+import com.intelligence.findme.util.Utils.showView
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +26,6 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         setUpSpinner()
-
     }
 
     private fun setUpSpinner() {

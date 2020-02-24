@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.intelligence.findme.R
 import com.intelligence.findme.adapters.ServiceAdapter.ServiceViewHolder
-import com.intelligence.findme.customfonts.TextViewHelveticaLight
 import com.intelligence.findme.models.Service
 import com.intelligence.findme.util.GlideApp
 import de.hdodenhof.circleimageview.CircleImageView
@@ -81,8 +81,8 @@ class ServiceAdapter(
     class ServiceViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         var imageView: CircleImageView
-        var tvServiceName: TextViewHelveticaLight
-        var tvContractorCount: TextViewHelveticaLight
+        var tvServiceName: TextView
+        var tvContractorCount: TextView
         var itemService: MaterialCardView
 
         init {

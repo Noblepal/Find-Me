@@ -7,7 +7,7 @@ import com.intelligence.findme.fragments.PasswordFragment
 import com.intelligence.findme.fragments.PhoneFragment
 import com.intelligence.findme.fragments.UsernameFragment
 
-class mFragmentPagerAdapter internal constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class MyFragmentPagerAdapter internal constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val count = 3
 

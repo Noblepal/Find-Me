@@ -1,12 +1,19 @@
 package com.intelligence.findme.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.android.material.textfield.TextInputEditText
 import com.intelligence.findme.R
+import com.intelligence.findme.util.SharedPrefsManager
+import com.intelligence.findme.util.Utils.hideView
+import com.intelligence.findme.util.Utils.showView
 
 
 class PhoneFragment : Fragment() {
@@ -19,8 +26,30 @@ class PhoneFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var v = inflater.inflate(R.layout.fragment_phone, container, false)
+        val v = inflater.inflate(R.layout.fragment_phone, container, false)
+        val edtPhone = v.findViewById<TextInputEditText>(R.id.edt_phone)
+        val tvErrorMessage = v.findViewById<TextView>(R.id.tvPhoneErrorMessage)
+        edtPhone.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().length < 10) {
+                    showView(tvErrorMessage)
+                } else {
+                    hideView(tvErrorMessage)
 
+                    Handler().postDelayed({
+                        SharedPrefsManager.getInstance(context!!)
+                            ?.setTempPhone(s.toString().trim())
+                    }, 1000)
+
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
 
         return v
     }

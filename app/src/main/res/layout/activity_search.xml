@@ -44,13 +44,14 @@
                     android:layout_toEndOf="@id/img_back_btn"
                     android:src="@drawable/ic_search" />
 
-                <com.intelligence.findme.customfonts.TextViewHelveticaLight
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:layout_toEndOf="@id/img_vehicle_type"
+                    android:fontFamily="@font/product_sans_regular"
                     android:text="Search Service" />
 
                 <LinearLayout
@@ -61,7 +62,7 @@
                     android:layout_margin="8dp"
                     android:orientation="vertical">
 
-                    <!--<com.intelligence.findme.customfonts.TextViewHelveticaLight
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -76,11 +77,12 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <com.intelligence.findme.customfonts.TextViewHelveticaLight
+        <TextView
             android:id="@+id/tv_select_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:fontFamily="@font/product_sans_regular"
             android:text="Select Service"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +100,7 @@
                 android:layout_height="48dp"
                 android:layout_margin="8dp"
                 android:background="@drawable/bg_search"
+                android:fontFamily="@font/product_sans_regular"
                 android:spinnerMode="dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -114,23 +117,25 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <com.intelligence.findme.customfonts.TextViewHelveticaLight
+        <TextView
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:fontFamily="@font/product_sans_regular"
             android:text="Describe the problem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rl_spinner" />
 
-        <com.intelligence.findme.customfonts.EditTextHelvetica
+        <EditText
             android:id="@+id/edt_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@drawable/bg_search_square"
             android:drawablePadding="8dp"
+            android:fontFamily="@font/product_sans_regular"
             android:gravity="top"
             android:hint="E.g Tap leaking"
             android:lines="3"
@@ -139,28 +144,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
-        <com.intelligence.findme.customfonts.TextViewHelveticaLight
+        <TextView
             android:id="@+id/tv_choose_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:fontFamily="@font/product_sans_regular"
             android:text="Choose desired time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_description" />
 
-       <!-- <com.intelligence.findme.customfonts.TextViewHelveticaLight
-            android:id="@+id/tv_time_picker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/bg_search"
-            android:drawablePadding="8dp"
-            android:gravity="top"
-            android:hint="As soon as possible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_choose_time" />-->
+        <!-- <TextView
+             android:id="@+id/tv_time_picker"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="8dp"
+             android:background="@drawable/bg_search"
+             android:drawablePadding="8dp"
+             android:gravity="top"
+             android:hint="As soon as possible"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/tv_choose_time" />-->
 
         <TimePicker
             android:id="@+id/time_picker"
@@ -171,12 +177,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_choose_time" />
 
-        <com.intelligence.findme.customfonts.TextViewHelveticaLight
+        <TextView
             android:id="@+id/btn_request_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@drawable/bg_confirm_button"
+            android:fontFamily="@font/product_sans_regular"
             android:gravity="center"
             android:padding="12dp"
             android:text="Request Service"

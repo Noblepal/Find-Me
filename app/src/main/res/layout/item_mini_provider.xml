@@ -32,7 +32,7 @@
             app:layout_constraintStart_toEndOf="@id/imgMiniProvider"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.intelligence.findme.customfonts.TextViewHelveticaLight
+            <TextView
                 android:id="@+id/tvMiniContractorName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
-            <com.intelligence.findme.customfonts.TextViewHelveticaLight
+            <TextView
                 android:id="@+id/tvMiniContractorService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.intelligence.findme.customfonts.TextViewHelveticaLight
+            <TextView
                 android:id="@+id/tvMiniDistance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
-            <com.intelligence.findme.customfonts.TextViewHelveticaLight
+            <TextView
                 android:id="@+id/tvMiniPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
