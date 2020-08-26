@@ -3,7 +3,6 @@ package com.intelligence.findme.interfaces
 import com.intelligence.findme.models.ProviderResponse
 import com.intelligence.findme.models.RegisterResponse
 import com.intelligence.findme.models.ServiceResponse
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -33,11 +32,12 @@ interface ApiService {
         @Field("lng") lng: Double
     ): Call<ProviderResponse>
 
+    /*Register user*/
     @FormUrlEncoded
-    @POST("register.php")
+    @POST("newRegister")
     fun registerUser(
-        @Field("token") token: String,
-        @Field("name") username: String,
+        @Field("username") username: String,
+        @Field("email") email: String,
         @Field("phone") phone: String,
         @Field("password") password: String
     ): Call<RegisterResponse>

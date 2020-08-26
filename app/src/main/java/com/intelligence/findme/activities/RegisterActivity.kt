@@ -1,15 +1,14 @@
 package com.intelligence.findme.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
+import android.text.TextUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
 import com.intelligence.findme.R
-import com.intelligence.findme.adapters.MyFragmentPagerAdapter
 import com.intelligence.findme.models.RegisterResponse
 import com.intelligence.findme.retrofit.RetrofitClient
-import com.intelligence.findme.util.SharedPrefsManager
 import com.intelligence.findme.util.Utils.REGISTER_USER_TOKEN
 import com.intelligence.findme.util.Utils.hideView
 import com.intelligence.findme.util.Utils.logThis
@@ -22,53 +21,52 @@ import retrofit2.Response
 class RegisterActivity : AppCompatActivity() {
 
     private val TAG = "RegisterActivity"
-    private lateinit var viewPager: ViewPager
-    private lateinit var adapter: MyFragmentPagerAdapter
+    private var context: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        viewPager = findViewById<ViewPager>(R.id.registerViewPager)
-        adapter = MyFragmentPagerAdapter(supportFragmentManager)
-        viewPager.adapter = adapter
+        context = this
 
-        floating_next.setOnClickListener { nextOrPreviousFragment(true) }
+        fabRegister.setOnClickListener {
 
-    }
-
-    private fun nextOrPreviousFragment(isNext: Boolean) {
-        logThis(0, TAG, "isNext: $isNext")
-        var position = viewPager.currentItem
-        logThis(0, TAG, "Position: $position")
-        if (isNext) {
-            if (position < 2) {
-                position++
-                viewPager.currentItem = position
-            } else {
-                logThis(0, TAG, "End of viewpager")
-                prepareData()
-            }
-        } else {
-            if (position > 0) {
-                position--
-                viewPager.currentItem = position
-            } else {
-                logThis(0, TAG, "Start of viewpager")
-            }
         }
+
     }
 
-    //TODO: Not tested yet!!
     private fun prepareData() {
-        showView(registerProgressBar)
-        floating_next.setImageResource(0)
-        val userData = getAllData()
+        showView(registerProgress)
+        hideView(fabRegister)
+
+        val username = edtRegUsername.text.toString().trim()
+        val email = edtRegEmail.text.toString().trim()
+        val phone = edtPhone.text.toString().trim()
+        val password = edtRegPassword.text.toString().trim()
+        val passwordC = edtConfPassword.text.toString().trim()
+
+        if (TextUtils.isEmpty(username)) {
+            edtRegUsername.error = "Username is required"
+            edtRegUsername.requestFocus()
+        } else if (TextUtils.isEmpty(email)) {
+            edtRegEmail.error = "Email is required"
+            edtRegEmail.requestFocus()
+        } else if (TextUtils.isEmpty(phone)) {
+            edtPhone.error = "Phone is required"
+            edtPhone.requestFocus()
+        } else if (TextUtils.isEmpty(password)) {
+            edtRegPassword.error = "Password is required"
+            edtRegPassword.requestFocus()
+        } else if (TextUtils.isEmpty(passwordC)) {
+            edtConfPassword.error = "Password confirmation is required"
+            edtConfPassword.requestFocus()
+        } else if (password != passwordC) {
+            edtConfPassword.error = "Passwords do not match"
+            edtConfPassword.requestFocus()
+        }
+
         RetrofitClient.instance.registerUser(
-            REGISTER_USER_TOKEN,
-            userData[0],
-            userData[1],
-            userData[2]
+            username, email, phone, password
         ).enqueue(object : Callback<RegisterResponse> {
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 logThis(0, "onFailure", "Error: ${t.localizedMessage}")
@@ -79,25 +77,32 @@ class RegisterActivity : AppCompatActivity() {
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
-                logThis(0, "OnResponse", "Successfully registered")
-                startActivity(Intent(applicationContext, MainActivity::class.java))
-                floating_next.setImageResource(R.drawable.ic_next)
-                hideView(registerProgressBar)
+                hideView(registerProgress)
+                showView(fabRegister)
+
+                if (response.isSuccessful) {
+                    if (!response.body()!!.error) {
+
+                        logThis(0, "OnResponse", "Successfully registered")
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Failed to register",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Unsuccessful Failed to register",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
             }
 
         })
     }
-
-    private fun getAllData(): Array<String> {
-        return SharedPrefsManager.getInstance(this@RegisterActivity)!!.getTempData()
-    }
-
-    override fun onBackPressed() {
-        if (viewPager.currentItem > 0) {
-            viewPager.currentItem = viewPager.currentItem - 1
-        } else {
-            super.onBackPressed()
-        }
-    }
-
 }
